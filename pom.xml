@@ -11,6 +11,7 @@
     <modules>
         <module>jedis_demo_1</module>
         <module>SpringDataRedis_demo_2</module>
+        <module>hm-dianping_3</module>
     </modules>
 
     <properties>
