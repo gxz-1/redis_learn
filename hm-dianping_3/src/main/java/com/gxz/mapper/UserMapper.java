@@ -3,6 +3,8 @@ package com.gxz.mapper;
 import com.gxz.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * <p>
  *  Mapper 接口
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface UserMapper extends BaseMapper<User> {
 
+    User selectByPhone(String phone);
 }

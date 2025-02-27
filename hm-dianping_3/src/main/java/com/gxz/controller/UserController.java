@@ -3,9 +3,13 @@ package com.gxz.controller;
 
 import com.gxz.dto.LoginFormDTO;
 import com.gxz.dto.Result;
+import com.gxz.dto.UserDTO;
+import com.gxz.entity.User;
 import com.gxz.entity.UserInfo;
 import com.gxz.service.IUserInfoService;
 import com.gxz.service.IUserService;
+import com.gxz.utils.RegexUtils;
+import com.gxz.utils.UserHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,8 +40,8 @@ public class UserController {
      */
     @PostMapping("code")
     public Result sendCode(@RequestParam("phone") String phone, HttpSession session) {
-        // TODO 发送短信验证码并保存验证码
-        return Result.fail("功能未完成");
+        Result result = userService.sendCode(phone, session);
+        return result;
     }
 
     /**
@@ -46,8 +50,17 @@ public class UserController {
      */
     @PostMapping("/login")
     public Result login(@RequestBody LoginFormDTO loginForm, HttpSession session){
-        // TODO 实现登录功能
-        return Result.fail("功能未完成");
+        String phone = loginForm.getPhone();
+        String code = loginForm.getCode();
+        if (RegexUtils.isPhoneInvalid(phone)) {
+            return Result.fail("手机号格式错误！");
+        }
+        if(!code.equals(session.getAttribute("code"))){
+            return Result.fail("验证码错误");
+        }
+        System.out.println("code = " + code);
+        Result result = userService.login(phone,session);
+        return result;
     }
 
     /**
@@ -62,8 +75,9 @@ public class UserController {
 
     @GetMapping("/me")
     public Result me(){
-        // TODO 获取当前登录的用户并返回
-        return Result.fail("功能未完成");
+        UserDTO user = UserHolder.getUser();
+        System.out.println("user = " + user);
+        return Result.ok(user);
     }
 
     @GetMapping("/info/{id}")
