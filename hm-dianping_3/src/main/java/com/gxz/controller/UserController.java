@@ -55,11 +55,11 @@ public class UserController {
         if (RegexUtils.isPhoneInvalid(phone)) {
             return Result.fail("手机号格式错误！");
         }
-        if(!code.equals(session.getAttribute("code"))){
-            return Result.fail("验证码错误");
-        }
+//        if(!code.equals(session.getAttribute("code"))){
+//            return Result.fail("验证码错误");
+//        }
         System.out.println("code = " + code);
-        Result result = userService.login(phone,session);
+        Result result = userService.login(phone,code,session);
         return result;
     }
 

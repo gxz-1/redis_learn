@@ -18,5 +18,5 @@ public interface IUserService extends IService<User> {
 
     Result sendCode(String phone, HttpSession session);
 
-    Result login(String phone, HttpSession session);
+    Result login(String phone, String code,HttpSession session);
 }

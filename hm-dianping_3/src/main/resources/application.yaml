@@ -9,7 +9,7 @@ spring:
     username: hmdp_user
     password: password
   redis:
-    host: 218.194.61.139
+    host: 218.194.61.54
     port: 9872
     password: password
     lettuce:
