@@ -3,14 +3,19 @@ package com.gxz.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gxz.dto.Result;
 import com.gxz.entity.Voucher;
+import com.gxz.entity.VoucherOrder;
 import com.gxz.mapper.VoucherMapper;
 import com.gxz.entity.SeckillVoucher;
 import com.gxz.service.ISeckillVoucherService;
 import com.gxz.service.IVoucherService;
+import com.gxz.utils.RedisIdWorker;
+import com.gxz.utils.UserHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -48,4 +53,7 @@ public class VoucherServiceImpl extends ServiceImpl<VoucherMapper, Voucher> impl
         seckillVoucher.setEndTime(voucher.getEndTime());
         seckillVoucherService.save(seckillVoucher);
     }
+
+
+
 }
