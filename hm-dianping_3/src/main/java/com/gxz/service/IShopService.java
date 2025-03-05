@@ -1,5 +1,6 @@
 package com.gxz.service;
 
+import com.gxz.dto.Result;
 import com.gxz.entity.Shop;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IShopService extends IService<Shop> {
 
+    Result queryById(Long id);
 }
