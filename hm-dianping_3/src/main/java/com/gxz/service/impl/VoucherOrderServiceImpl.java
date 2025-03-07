@@ -78,7 +78,7 @@ public class VoucherOrderServiceImpl extends ServiceImpl<VoucherOrderMapper, Vou
 
             //5，扣减库存
 
-    //        //TODO:把库存数量字段stock当作版本号，通过乐观锁保证线程安全
+    //        //TODO:把库存数量字段stock当作版本号，通过乐观锁保证线程安全，解决超卖问题
     //       //TODO:即当更新时的stock与第4步查询的stock值一致时才成功扣减 where id = #{voucherId} and stock = #{old_stock}
     //        //TODO:但这种方案成功率太低，但是100个人中只有1个人能扣减成功
     //        boolean success = seckillVoucherService.update()

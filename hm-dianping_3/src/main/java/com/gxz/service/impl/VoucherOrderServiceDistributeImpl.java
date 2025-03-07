@@ -59,7 +59,7 @@ public class VoucherOrderServiceDistributeImpl extends ServiceImpl<VoucherOrderM
         }
         //4.2判断用户是否已经下过单，使用redis通过key对userId上锁，实现分布式锁
         Long userId = UserHolder.getUser().getId();
-        SimpleRedisLock redisLock = new SimpleRedisLock("order:" + userId, redisTemplate);
+        SimpleRedisLock redisLock = new SimpleRedisLock("order:" + userId, "",redisTemplate);
         boolean isLock = redisLock.tryLock(5);
         if(!isLock){
             return Result.fail("一个用户只能下单一次，不允许重复下单！");
@@ -68,6 +68,8 @@ public class VoucherOrderServiceDistributeImpl extends ServiceImpl<VoucherOrderM
             IVoucherOrderService proxy = (IVoucherOrderService) AopContext.currentProxy();
             return proxy.createVoucherOrder(voucherId);
         }finally {
+            //若当前线程超时导致锁释放，避免误删别的线程的锁
+//            if(isLock)
             redisLock.unlock();//释放锁
         }
     }
