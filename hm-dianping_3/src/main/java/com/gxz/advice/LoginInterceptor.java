@@ -31,9 +31,6 @@ public class LoginInterceptor implements HandlerInterceptor {
     //前置拦截器
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        //获取session中的用户
-//        HttpSession session = request.getSession();
-//        Object user = session.getAttribute("user");
         //获取request中的token，根据token在redis获取user
         String token = request.getHeader("authorization");
         //判断用户是否存在
@@ -51,7 +48,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         UserHolder.saveUser(userDTO);
         return true;
     }
-
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         UserHolder.removeUser();
